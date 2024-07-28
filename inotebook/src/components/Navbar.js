@@ -1,9 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   let location = useLocation();
-
+  let navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <nav
       className="navbar navbar-expand-lg bg-dark border-bottom border-body"
@@ -28,8 +32,9 @@ const Navbar = () => {
           <ul className="navbar-nav ">
             <li className="nav-item">
               <Link
-                className={`nav-link ${location.pathname === "/" ? "active" : ""
-                  }`}
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
                 aria-current="page"
                 to="/"
               >
@@ -38,8 +43,9 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link
-                className={`nav-link ${location.pathname === "/about" ? "active" : ""
-                  }`}
+                className={`nav-link ${
+                  location.pathname === "/about" ? "active" : ""
+                }`}
                 to="/about"
               >
                 About
@@ -47,12 +53,30 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <form className="d-flex" role="search">
-          <Link className="btn btn-outline-primary mx-2" to="/login" role="button">Login</Link>
-          <Link className="btn btn-outline-primary" to="/signup" role="button">Signup</Link>
-        </form>
+        {!localStorage.getItem("token") ? (
+          <form className="d-flex" role="search">
+            <Link
+              className="btn btn-outline-primary mx-2"
+              to="/login"
+              role="button"
+            >
+              Login
+            </Link>
+            <Link
+              className="btn btn-outline-primary"
+              to="/signup"
+              role="button"
+            >
+              Signup
+            </Link>
+          </form>
+        ) : (
+          <button onClick={handleLogout} className="btn btn-outline-primary">
+            Logout
+          </button>
+        )}
       </div>
-    </nav >
+    </nav>
   );
 };
 
