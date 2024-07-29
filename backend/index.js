@@ -8,7 +8,7 @@ const port = 5000;
 
 app.use(
   cors({
-    origin: ["https://cloudamazon.vercel.app"],
+    origin: ["https://icloudnote.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
