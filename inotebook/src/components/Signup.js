@@ -13,24 +13,29 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = credentials;
-    const response = await fetch(
-      `https://icloudnote.vercel.app/api/auth/createuser`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
+    try {
+      const response = await fetch(
+        `https://icloudnote.vercel.app/api/auth/createuser`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
+      const json = await response.json();
+      if (json.success) {
+        // save the auth token and redirect
+        localStorage.setItem("token", json.authToken);
+        navigate("/");
+        props.showAlert("Account Created Successfully", "success");
+      } else {
+        props.showAlert("Invalid Credentials", "danger");
       }
-    );
-    const json = await response.json();
-    if (json.success) {
-      // save the auth token and redirect
-      localStorage.setItem("token", json.authToken);
-      navigate("/");
-      props.showAlert("Account Created Successfully", "success");
-    } else {
-      props.showAlert("Invalid Credentials", "danger");
+    } catch (error) {
+      console.log(error);
     }
   };
 
