@@ -15,7 +15,7 @@ const Signup = (props) => {
     const { name, email, password } = credentials;
     try {
       const response = await fetch(
-        `https://icloudnote.vercel.app/api/auth/createuser`,
+        `https://cloudnote-server.vercel.app/api/auth/createuser`,
         {
           method: "POST",
           headers: {

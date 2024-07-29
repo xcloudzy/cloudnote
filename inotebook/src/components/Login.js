@@ -9,7 +9,7 @@ const Login = (props) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://icloudnote.vercel.app/api/auth/login`,
+        `https://cloudnote-server.vercel.app/api/auth/login`,
         {
           method: "POST",
           headers: {
