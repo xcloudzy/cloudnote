@@ -15,7 +15,7 @@ const Navbar = () => {
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          iNotebook
+          CloudNote
         </Link>
         <button
           className="navbar-toggler"
